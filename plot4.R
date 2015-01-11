@@ -37,18 +37,30 @@ if (file.exists(file)) {
   dt <- strptime(paste(powerdata$Date, powerdata$Time), "%d/%m/%Y %H:%M:%S") 
 
   # Open plot2.png file for output
-  png("plot3.png", height=480, width=480)
+  png("plot4.png", height=480, width=480)
 
-  ## Create plot graph based on time series (dt) and the first data series (series1)
+  # Establish the plotting area as 2 plots wide by 2 plots tall
+  par(mfrow=c(2,2))
+
+  ## Create the first plot based on time series (dt) and the Global Active power
+  plot(dt, as.numeric(powerdata$Global_active_power), type="l", pch=NA, xlab="", ylab="Global Active Power", col=colors[1])
+
+  ## Create the second plot based on time series (dt) and Voltage
+  plot(dt, as.numeric(powerdata$Voltage), type="l", pch=NA, xlab="", ylab="Voltage", col=colors[1])
+
+  ## Create the third plot based on time series (dt) and the first data series (series1)
   plot(dt, as.numeric(powerdata$Sub_metering_1), type="l", pch=NA, xlab="", ylab="Energy sub metering", col=colors[1])
 
-  ## Add additional series to the plot
+  ## Add additional series to the third plot
   lines(dt, as.numeric(powerdata$Sub_metering_2), col=colors[2])
   lines(dt, as.numeric(powerdata$Sub_metering_3), col=colors[3])
 
-  ## Add the plot legend
+  ## Add the legend to the third plot
   legend("topright", col=colors, legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
            lty=c(1,1,1))
+
+  ## Create the fourth and final plot based on Global reactive power
+  plot(dt, as.numeric(powerdata$Global_reactive_power), type="l", pch=NA, xlab="", ylab="Global_reactive_power", col=colors[1])
 
   ## Close the PNG device output
   dev.off()
