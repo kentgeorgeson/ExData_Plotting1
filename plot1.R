@@ -1,6 +1,6 @@
 # Exploratory Data Analysis Course - Jan 5th Start
 # Student: Kent Georgeson
-# Project 1 - Week 1
+# Project 1 - Week 1 - Plot 1
 # This R file is to recreate a histogram plot as assigned in the project notes. This assignment uses data from the UC Irvine Machine Learning Repository, specifically will are using the “Individual household electric power" 
 
 ## First step is to confirm data is present, if not already download it retrieve the data by downloading the file as a ZIP and unzipping it to the working directory.

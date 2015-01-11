@@ -1,6 +1,6 @@
 # Exploratory Data Analysis Course - Jan 5th Start
 # Student: Kent Georgeson
-# Project 1 - Week 1 - Plot 2
+# Project 1 - Week 1 - Plot 4
 # This R file is to recreate a time series line plot as assigned in the project notes. This assignment uses data from the 
 # UC Irvine Machine Learning Repository, specifically will are using the “Individual household electric power" 
 
@@ -15,8 +15,11 @@ if (!file.exists(file)) {
 
 if (file.exists(file)) {
 
+  ## Default series colors
+  colors <- c("black", "red", "blue")
+
   ## Set Column Classes
-  cols <- rep("NULL",9)
+  cols <- rep("numeric",9)
   cols[1] <- "character"
   cols[2] <- "character"
   cols[3] <- "numeric"
@@ -33,14 +36,19 @@ if (file.exists(file)) {
   ## Format the date and time fields into a single, combined, data and time variable
   dt <- strptime(paste(powerdata$Date, powerdata$Time), "%d/%m/%Y %H:%M:%S") 
 
-  ## Create the data series ensuring numeric value
-  series <- as.numeric(powerdata$Global_active_power)
-
   # Open plot2.png file for output
-  png("plot2.png", height=480, width=480)
+  png("plot3.png", height=480, width=480)
 
-  ## Create plot graph based on time series (dt) and data series (series) hiding the markers for data points with pch=NA
-  plot(dt, series, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+  ## Create plot graph based on time series (dt) and the first data series (series1)
+  plot(dt, as.numeric(powerdata$Sub_metering_1), type="l", pch=NA, xlab="", ylab="Energy sub metering", col=colors[1])
+
+  ## Add additional series to the plot
+  lines(dt, as.numeric(powerdata$Sub_metering_2), col=colors[2])
+  lines(dt, as.numeric(powerdata$Sub_metering_3), col=colors[3])
+
+  ## Add the plot legend
+  legend("topright", col=colors, legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+           lty=c(1,1,1))
 
   ## Close the PNG device output
   dev.off()
